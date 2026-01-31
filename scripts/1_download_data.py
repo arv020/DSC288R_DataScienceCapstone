@@ -5,29 +5,28 @@ import numpy as np
 
 # Default is TRUE to DOWNLOAD_RAW and DOWNLOAD_CLEANSED
 # These default values make the data download process quicker while still seeing tranformations
-DOWNLOAD_RAW = True # This determines if RAW datasets get downloaded locally
-MANUAL_CLEANSED = False # This determines if we want to manually tranform dataset
-DOWNLOAD_CLEANSED = True # This determines to skip manual, and download cleansed dataset
+DOWNLOAD_RAW = False # This determines if RAW datasets get downloaded locally
+MANUAL_CLEANSED = True # This determines if we want to manually tranform dataset
+DOWNLOAD_CLEANSED = False # This determines to skip manual, and download cleansed dataset
+
+# Paths
+RAW_DIR = Path("../data/raw")
+CLEAN_DIR = Path("../data/cleansed")
+MODEL_READY_DIR = Path("../data/model_ready")
+
+RAW_DIR.mkdir(parents=True, exist_ok=True)
+CLEAN_DIR.mkdir(parents=True, exist_ok=True)
+MODEL_READY_DIR.mkdir(parents=True, exist_ok=True)
+
+RAW_FILE = RAW_DIR / "all_flights_2018-2022_raw.parquet"
+WEATHER_FILE = RAW_DIR / "flightsweather.parquet"
+CLEAN_FILE = CLEAN_DIR / "all_flights_2018-2022_cleansed.parquet"
+
 
 if DOWNLOAD_RAW == True:
     # Google Drive file
     FILE_ID = "1Ph1LoKHpMHeBOHUKESU7FkNZOZYXkbIz"
     url = f"https://drive.google.com/uc?id={FILE_ID}"
-
-    # Paths
-    RAW_DIR = Path("../data/raw")
-    CLEAN_DIR = Path("../data/cleansed")
-    MODEL_READY_DIR = Path("../data/model_ready")
-
-    RAW_DIR.mkdir(parents=True, exist_ok=True)
-    CLEAN_DIR.mkdir(parents=True, exist_ok=True)
-    MODEL_READY_DIR.mkdir(parents=True, exist_ok=True)
-
-    RAW_FILE = RAW_DIR / "all_flights_2018-2022_raw.parquet"
-    WEATHER_FILE = RAW_DIR / "flightsweather.parquet"
-    CLEAN_FILE = CLEAN_DIR / "all_flights_2018-2022_cleansed.parquet"
-    #MODEL_READY_FILE = MODEL_READY_DIR / "flightsweather.parquet"
-
 
     # Download raw file
     print(f"Downloading raw dataset to {RAW_FILE} ...")
@@ -103,6 +102,20 @@ if MANUAL_CLEANSED == True:
     weather["date"] = weather["valid"].dt.date
     weather["hour"] = weather["valid"].dt.hour
 
+    print(weather.columns)
+    # NAN value indicates dry conditions
+    weather['p01i']= weather['p01i'].fillna(0)
+
+    # NAN value indicates stable wind conditions
+    weather['gust'] = weather['gust'].fillna(0)
+
+    # NAN value clear conditions
+    weather['vsby'] = weather['vsby'].fillna(0)
+
+    # NAN value indicates missing for relh & tempf only
+    # although relh has overlap with other nan values, so we want to keep that for now
+    weather= weather.dropna(subset = ['tmpf'], how = 'any')
+
     weather_hourly = (
         weather.groupby(["airport_code", "date", "hour"], as_index=False)
         .agg({
@@ -125,14 +138,6 @@ if MANUAL_CLEANSED == True:
         how="left",
     ).drop(columns=["airport_code", "hour"], errors="ignore")
     print(f"Shape after joining: {joined_df.shape}")
-
-    joined_df = joined_df.dropna(subset=["tmpf",
-        "vsby",
-        "sknt",
-        "p01i",
-        "relh",
-        "gust"])
-    print(f"Shape after dropping null values for all weather data: {joined_df.shape}")
 
     # Save cleaned parquet
     print(f"Saving cleaned dataset to {CLEAN_FILE} ...")

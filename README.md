@@ -13,7 +13,7 @@ Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 │
 ├── scripts/
 │   ├── 1_download_data.py    # Download raw and cleansed flight/weather data
-│   ├── 2_model_ready_data.py # Clean and preprocess model ready data
+│   ├── 2_data_processing.py  # New features and preprocess model ready data
 │   └── 3_sampling.py         # Sampling strategy for model training
 │
 ├── notebooks/
@@ -92,6 +92,13 @@ Steps to start:
   <TR><TD>CRSElapsedTime</TD><TD>Scheduled elapsed flight time in minutes.</TD></TR>
   <TR><TD>Distance</TD><TD>Distance between airports in miles.</TD></TR>
   <TR><TD>DistanceGroup</TD><TD>Distance intervals in 250-mile groups.</TD></TR>
+
+<!-- Origin Airport Weather conditions -->
+  <TR><TD>p01i</TD><TD>Total precipitation accumulated over the previous one-hour period (inches). Includes: rain, snow, or other measurable precipitation</TD></TR>
+  <TR><TD>gust</TD><TD>Max wind gust speed observed during the reporting period (in knots)</TD></TR>
+  <TR><TD>vsby</TD><TD>Horizontal visibility measured in statute miles at reporting station (in miles)</TD></TR>
+  <TR><TD>relh</TD><TD>Relative humidity expressed as a percentage. Variable is not directly measured but derived from temp and dew point.</TD></TR>
+  <TR><TD>tempf</TD><TD>Air temperature in F</TD></TR>
 
 </TABLE>
 
