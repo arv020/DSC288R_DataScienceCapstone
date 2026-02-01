@@ -99,6 +99,7 @@ Steps to start:
   <TR><TD>vsby</TD><TD>Horizontal visibility measured in statute miles at reporting station (in miles)</TD></TR>
   <TR><TD>relh</TD><TD>Relative humidity expressed as a percentage. Variable is not directly measured but derived from temp and dew point.</TD></TR>
   <TR><TD>tempf</TD><TD>Air temperature in F</TD></TR>
+  <TR><TD>sknt</TD><TD>Wind Speed in knots</TD></TR>
 
 </TABLE>
 

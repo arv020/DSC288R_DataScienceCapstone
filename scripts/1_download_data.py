@@ -5,9 +5,9 @@ import numpy as np
 
 # Default is TRUE to DOWNLOAD_RAW and DOWNLOAD_CLEANSED
 # These default values make the data download process quicker while still seeing tranformations
-DOWNLOAD_RAW = False # This determines if RAW datasets get downloaded locally
-MANUAL_CLEANSED = True # This determines if we want to manually tranform dataset
-DOWNLOAD_CLEANSED = False # This determines to skip manual, and download cleansed dataset
+DOWNLOAD_RAW = True # This determines if RAW datasets get downloaded locally
+MANUAL_CLEANSED = False # This determines if we want to manually tranform dataset
+DOWNLOAD_CLEANSED = True # This determines to skip manual, and download cleansed dataset
 
 # Paths
 RAW_DIR = Path("../data/raw")
@@ -101,20 +101,7 @@ if MANUAL_CLEANSED == True:
     weather = weather.dropna(subset=["valid"]).copy()
     weather["date"] = weather["valid"].dt.date
     weather["hour"] = weather["valid"].dt.hour
-
     print(weather.columns)
-    # NAN value indicates dry conditions
-    weather['p01i']= weather['p01i'].fillna(0)
-
-    # NAN value indicates stable wind conditions
-    weather['gust'] = weather['gust'].fillna(0)
-
-    # NAN value clear conditions
-    weather['vsby'] = weather['vsby'].fillna(0)
-
-    # NAN value indicates missing for relh & tempf only
-    # although relh has overlap with other nan values, so we want to keep that for now
-    weather= weather.dropna(subset = ['tmpf'], how = 'any')
 
     weather_hourly = (
         weather.groupby(["airport_code", "date", "hour"], as_index=False)
@@ -128,6 +115,22 @@ if MANUAL_CLEANSED == True:
         })
     )
 
+    # NAN value indicates missing for relh & tempf only
+    # although relh has overlap with other nan values, so we want to keep that for now
+    weather_hourly= weather_hourly.dropna(subset = ['tmpf'])
+
+    # NAN value indicates dry conditions
+    weather_hourly['p01i']= weather_hourly['p01i'].fillna(0)
+
+    # NAN value indicates stable wind conditions
+    weather_hourly['gust'] = weather_hourly['gust'].fillna(0)
+
+    # NAN value clear conditions
+    weather_hourly['vsby'] = weather_hourly['vsby'].fillna(0)
+
+    # NAN value clear conditions
+    weather_hourly['sknt'] = weather_hourly['sknt'].fillna(0)   
+
     df["date"] = df["FlightDate"].dt.date
     df['dep_hour'] = df['CRSDepTime'] // 100
 
@@ -139,6 +142,10 @@ if MANUAL_CLEANSED == True:
     ).drop(columns=["airport_code", "hour"], errors="ignore")
     print(f"Shape after joining: {joined_df.shape}")
 
+    # Dropping rows that did not join
+    joined_df = joined_df.dropna(subset = ["tmpf","vsby","sknt","p01i","relh","gust"], how='all')
+    print(f"Shape after dropping unmerged: {joined_df.shape}")
+
     # Save cleaned parquet
     print(f"Saving cleaned dataset to {CLEAN_FILE} ...")
     joined_df.to_parquet(CLEAN_FILE, index=False)
@@ -146,14 +153,9 @@ if MANUAL_CLEANSED == True:
 
 if DOWNLOAD_CLEANSED == True:
 # # 5. Download merged weather and flights file (cleansed)
-    FILE_ID = "1-dMr8usR2TF1RYgrk0tbStdc07cuP8V9"
+    FILE_ID = "1V2rFxN8UAdsHmBPFEwpASPqm38yb0-bZ"
     url = f"https://drive.google.com/uc?id={FILE_ID}"
 
     print(f"Downloading flights and weather merged dataset to {CLEAN_FILE} ...")
     gdown.download(url, str(CLEAN_FILE), quiet=False)
-    print("Model Ready Download complete!")
     print("All done")
-
-
-
-
