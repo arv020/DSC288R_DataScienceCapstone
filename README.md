@@ -1,11 +1,24 @@
+# Flight Delay and Cancellation Prediction in the United States (2018–2022)
 
-### Flight Delay and Cancellation Prediction in the United States (2018–2022)
-Capstone project for DSC288R course for UCSD Data Science Masters Program
-
-Purpose: Predict whether a U.S. domestic flight will be on time, delayed, or cancelled using historical flight and weather data. The project provides a baseline Random Forest model, carefully avoiding data leakage.
+Capstone project for **DSC288R** — UC San Diego  
+Master of Science in Data Science
 
 Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 
+## Project Purpose
+
+Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **cancelled** using historical flight and weather data (2018–2022).
+
+This project:
+- Uses a **leakage-free feature set**
+- Provides a **baseline Random Forest model**
+- Emphasizes reproducibility and scalability
+
+---
+
+## Project Structure
+
+```text
 ├── data/
 │   ├── raw/                  # Raw downloaded data (not tracked)
 │   ├── cleansed/             # Cleaned / joined datasets
@@ -24,11 +37,14 @@ Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 ├── README.md
 ├── requirements.txt
 └── .gitignore
+```
+
+---
 
 Steps to start:
 
 1. Clone this repo
-2. Run the script "1_download_data.py" in terminal to download data locally
+2. Run the script "1_download_data.py" and "2_data_processing.py" in terminal to download data locally
 3. Explore the EDA notebooks for data findings
 4. to be continued....
 
@@ -38,13 +54,6 @@ Steps to start:
 <TABLE>
   <TR>
     <TD COLSPAN=2><H4>Airport Flights – On Time, Delayed, or Cancelled?</H4></TD>
-  </TR>
-
-  <TR>
-    <TD COLSPAN=2>
-      In order to download the data, run the script <code>1_download_data.py</code>.
-      After this you will be able to access the data locally as a parquet file.
-    </TD>
   </TR>
 
   <TR><TD COLSPAN=2>&nbsp;</TD></TR>
