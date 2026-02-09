@@ -7,12 +7,13 @@ Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 
 ## Project Purpose
 
-Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **cancelled** using historical flight and weather data (2018–2022).
+Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **cancelled** using historical flight operations and weather data from **2018–2022**.
 
 This project:
-- Uses a **leakage-free feature set**
-- Provides a **baseline Random Forest model**
-- Emphasizes reproducibility and scalability
+- Uses a **leakage-free feature set** (only information available before departure)
+- Explores multiple modeling approaches (Logistic Regression, Random Forest, XGBoost)
+- Applies **multi-stage sampling** to manage dataset scale and class imbalance
+- Emphasizes **time-aware evaluation** and class-balanced metrics
 
 ---
 
@@ -26,13 +27,23 @@ This project:
 │
 ├── scripts/
 │   ├── 1_download_data.py    # Download raw and cleansed flight/weather data
-│   ├── 2_data_processing.py  # New features and preprocess model ready data
-│   └── 3_sampling.py         # Sampling strategy for model training
+│   ├── 2_data_processing.py  # Feature engineering + leakage-free preprocessing
+│   └── sampling_split.py     # Sampling strategy + train/val/test splits
 │
 ├── notebooks/
-│   ├── EDA.ipynb
-│   ├── sampling_exploration.ipynb
-│   └── baseline_model.ipynb
+│   ├── EDA/
+│   │   ├── 1_data_exploration.ipynb
+│   │   ├── Sahra_EDA.ipynb
+│   │   └── flights_eda.ipynb
+│   │
+│   └── modeling/
+│       ├── logistic_regression_baseline.ipynb
+│       ├── random_forest_baseline.ipynb
+│       ├── random_forest_v2.ipynb
+│       └── random_forest_v3.ipynb
+│
+├── models/
+│   └── XGBoost.ipynb
 │
 ├── README.md
 ├── requirements.txt
@@ -41,14 +52,27 @@ This project:
 
 ---
 
-Steps to start:
+## Workflow Overview
+	1.	Run 1_download_data.py to download and cache raw flight and weather data
+	2.	Run 2_data_processing.py to create leakage-free engineered features
+	3.	Run sampling_split.py to:
+  	•	Balance samples across months
+  	•	Cap dominant origin airports and regions
+  	•	Stratify by target class (best-effort)
+  	•	Create time-based train / validation / test splits
+	4.	Train and evaluate models using class-aware metrics
 
-1. Clone this repo
-2. Run the script "1_download_data.py" and "2_data_processing.py" in terminal to download data locally
-3. Explore the EDA notebooks for data findings
-4. to be continued....
+
+## Evaluation Strategy
+	1. Time-based splits to prevent future leakage
+	2. Accuracy reported for reference only
+	3. Primary metrics:
+  	•	Macro F1
+  	•	Balanced accuracy
+  	•	Class-specific recall (Delayed, Cancelled)
 
 
+## to be updated after finalizing the features
 <HTML>
 <BODY>
 <TABLE>
