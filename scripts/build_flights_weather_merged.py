@@ -31,12 +31,16 @@ CENSUS_REGIONS_TO_STATE = {
 
 STATE_TO_REGION = {state: region for region, states in CENSUS_REGIONS_TO_STATE.items() for state in states}
 
+# Add extra U.S. territories (not included in Cesus regions list) 
+STATE_TO_REGION['PR'] = 'South' # puerto rico 
+STATE_TO_REGION['VI'] = 'South' # virgin islands
+
 # Top 30 airports and their states 
 # used to build region-hour weather averages from weather dataset 
 AIRPORT_TO_STATE = {
     'ATL':'GA','DFW':'TX','DEN':'CO','ORD':'IL','LAX':'CA','JFK':'NY','LAS':'NV','MCO':'FL','MIA':'FL','CLT':'NC',
     'SEA':'WA','PHX':'AZ','EWR':'NJ','SFO':'CA','IAH':'TX','BOS':'MA','FLL':'FL','MSP':'MN','LGA':'NY','DTW':'MI',
-    'PHL':'PA','SLC':'UT','DCA':'DC','SAN':'CA','BWI':'MD','TPA':'FL','PDX':'OR','MDW':'IL','BNA':'TN','AUS':'TX',  
+    'PHL':'PA','SLC':'UT','DCA':'DC','SAN':'CA','BWI':'MD','TPA':'FL','PDX':'OR','MDW':'IL','BNA':'TN','AUS':'TX', 'IAD':'VA','DAL':'TX', 'STL':'MO','HOU':'TX','SJC':'CA','RDU':'NC', 'HNL':'HI', 'SMF':'CA','MSY':'LA','OAK':'CA','MCI':'MO','IND':'IN','CLE':'OH','PIT':'PA','SNA':'CA', 'CVG':'KY','CMH':'OH','RSW':'FL','SAT':'TX','MKE':'WI'
 }
 
 # Read weather and group by hour per airport
@@ -79,8 +83,8 @@ weather_hourly = weather_table.group_by(['airport_code', 'w_date', 'w_hour']).ag
 weather_hourly = weather_hourly.to_pandas()
 
 # Convert date/hour into pandas dtypes
-weather_hourly['w_date'] = pd.to_datetime(weather_hourly['w_date']).dt.date
-weather_hourly['w_hour'] = weather_hourly['w_hour'].astype('int16')
+weather_hourly['w_date'] = pd.to_datetime(weather_hourly['w_date'], errors='coerce').dt.normalize()
+weather_hourly['w_hour'] = pd.to_numeric(weather_hourly['w_hour'], errors='coerce').astype('int16')
 
 # Rename group by cols back to OG names
 rename_map = {f'{col}_{fn}': col for col, fn in weather_group_rules}
@@ -103,6 +107,7 @@ region_hourly = (
     .groupby(['region', 'w_date', 'w_hour'], as_index=False)[weather_features]
     .mean()
 )
+region_hourly['w_date'] = pd.to_datetime(region_hourly['w_date'])
 
 del weather_table, weather_region
 gc.collect()
@@ -125,7 +130,12 @@ if missing:
 
 pf = pq.ParquetFile(FLIGHTS_PATH)
 
-merged_chunks = []
+# delete old output to not interfere
+if os.path.exists(OUT_PATH):
+    os.remove(OUT_PATH)
+
+writer = None
+rows_written=0
 
 for batch_idx , batch in enumerate(pf.iter_batches(batch_size=BATCH_SIZE, columns=flight_cols_use)):
     df = batch.to_pandas()
@@ -141,14 +151,20 @@ for batch_idx , batch in enumerate(pf.iter_batches(batch_size=BATCH_SIZE, column
     # Convert datatypes + clean strings
     df['CRSDepTime'] = pd.to_numeric(df['CRSDepTime'], errors='coerce')
     df['Origin'] = df['Origin'].astype(str).str.upper().str.strip()
+    # Normalize state abbreviations to capture all 
     df['OriginState'] = df['OriginState'].astype(str).str.upper().str.strip()
 
     df = df.dropna(subset=['FlightDate','Origin','OriginState','CRSDepTime']).copy()
 
+    # Remove non-US territories (TT: Trinidad and Tobago)
+    df = df[df['OriginState'] != 'TT']
+
     # Make merge keys for flights
     # CRSDepTime is HHMM, so //100 to get hour (0-23)
     df['dep_hour'] = (df['CRSDepTime'] // 100).astype('int16').clip(0, 23)
-    df['f_date'] = df['FlightDate'].dt.date
+    
+    # have to normalize so parquet schema stays stable 
+    df['f_date'] = df['FlightDate'].dt.normalize()
 
     # Create region feature from OriginState
     df['region'] = df['OriginState'].map(STATE_TO_REGION)
@@ -194,17 +210,36 @@ for batch_idx , batch in enumerate(pf.iter_batches(batch_size=BATCH_SIZE, column
     ] + weather_features
 
     keep_cols = [col for col in keep_cols if col in m2.columns]
-    merged_chunks.append(m2[keep_cols])
+
+    out_chunk = m2[keep_cols].copy()
+
+    
+    # Force stable dtypes so schema stays consistent between batches
+    for col in ['Airline', 'Origin','OriginState','region','weather_source']:
+        if col in out_chunk.columns:
+            out_chunk[col] = out_chunk[col].astype('string')
+
+    if 'f_date' in out_chunk.columns:
+        out_chunk['f_date'] = pd.to_datetime(out_chunk['f_date'], errors='coerce').dt.date
+        
+
+    table = pa.Table.from_pandas(out_chunk, preserve_index=False)
+
+    if writer is None:
+        fixed_schema = table.schema
+        writer = pq.ParquetWriter(OUT_PATH, table.schema, compression='snappy')
+
+    table = table.cast(fixed_schema)
+
+    writer.write_table(table)
+    rows_written += len(out_chunk)
 
     # Delete for memory purposes
-    del df, m1, m2, has_airport_weather, has_after
+    del df, m1, m2, out_chunk, table, has_airport_weather, has_after
     gc.collect()
 
-final_df = pd.concat(merged_chunks, ignore_index=True)
+if writer is not None:
+    writer.close()
 
-print('Final merged shape:', final_df.shape)
-print('Weather source breakdown:')
-print(final_df['weather_source'].value_counts(dropna=False))
 
-final_df.to_parquet(OUT_PATH,index=False)
 print('Saved:', OUT_PATH)
