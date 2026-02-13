@@ -10,7 +10,7 @@ OUT_DIR.mkdir(parents=True, exist_ok=True)
 OUT_FILE = OUT_DIR / 'flight_weather_merged.parquet'
 
 # Google drive file ID
-FILE_ID = '1N66s8CR8tpxZpYenNXNYQyZOtnoPCcLS' 
+FILE_ID = '1N66s8CR8tpxZpYenNXNYQyZOtnoPCcLS'
 
 if DOWNLOAD_MERGED:
     url = f'https://drive.google.com/uc?id={FILE_ID}'
