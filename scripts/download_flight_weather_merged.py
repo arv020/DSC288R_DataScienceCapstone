@@ -4,7 +4,7 @@ from pathlib import Path
 DOWNLOAD_MERGED = True
 
 # Where the merged file will be saved
-OUT_DIR = Path('data/cleansed')
+OUT_DIR = Path('../data/cleansed')
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
 OUT_FILE = OUT_DIR / 'flight_weather_merged.parquet'
