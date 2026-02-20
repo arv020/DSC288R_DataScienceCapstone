@@ -5,7 +5,7 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pyarrow.compute as pc
-import Path
+from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
