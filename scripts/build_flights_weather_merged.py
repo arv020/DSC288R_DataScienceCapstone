@@ -8,7 +8,7 @@ import pyarrow.compute as pc
 
 # Paths
 FLIGHTS_PATH = 'data/raw/all_flights_2018-2022_raw.parquet'
-WEATHER_PATH = 'data/raw/weather_airports_2018_2022_CLEAN.parquet'
+WEATHER_PATH = 'data/raw/flightsweather.parquet'
 
 OUT_DIR = 'data/cleansed'
 OUT_PATH = os.path.join(OUT_DIR, 'flight_weather_merged.parquet')
