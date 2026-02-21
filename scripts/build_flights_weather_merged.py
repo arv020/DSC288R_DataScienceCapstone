@@ -5,12 +5,15 @@ import pandas as pd
 import pyarrow as pa
 import pyarrow.parquet as pq
 import pyarrow.compute as pc
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Paths
-FLIGHTS_PATH = 'data/raw/all_flights_2018-2022_raw.parquet'
-WEATHER_PATH = 'data/raw/weather_airports_2018_2022_CLEAN.parquet'
+FLIGHTS_PATH = BASE_DIR/"data"/"raw"/"all_flights_2018-2022_raw.parquet"
+WEATHER_PATH = BASE_DIR/"data"/"raw"/"weather_airports_2018_2022_CLEAN.parquet"
 
-OUT_DIR = 'data/cleansed'
+OUT_DIR = BASE_DIR/"data"/"cleansed"
 OUT_PATH = os.path.join(OUT_DIR, 'flight_weather_merged.parquet')
 os.makedirs(OUT_DIR, exist_ok=True)
 
