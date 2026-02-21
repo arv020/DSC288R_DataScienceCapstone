@@ -75,7 +75,6 @@ This project:
   	•	Class-specific recall (Delayed, Cancelled)
 
 
-## to be updated after finalizing the features
 <HTML>
 <BODY>
 <TABLE>
