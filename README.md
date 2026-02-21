@@ -22,28 +22,34 @@ This project:
 ```text
 ├── data/
 │   ├── raw/                  # Raw downloaded data (not tracked)
-│   ├── cleansed/             # Cleaned / joined datasets
-│   └── model_ready/          # Final datasets used for modeling
+│   └── cleansed/             # Cleaned / joined datasets
 │
 ├── scripts/
-│   ├── 1_download_data.py    # Download raw and cleansed flight/weather data
-│   ├── 2_data_processing.py  # Feature engineering + leakage-free preprocessing
-│   └── sampling_split.py     # Sampling strategy + train/val/test splits
+│   ├── 1_download_raw_data.py            # Download raw and cleansed flight/weather data
+│   ├── 2_download_merged_data.py         # Download merged flight + weather data
+│   └── build_flights_weather_merged      # Script on how merged data is processed
 │
 ├── notebooks/
 │   ├── EDA/
-│   │   ├── 1_data_exploration.ipynb
-│   │   ├── Sahra_EDA.ipynb
-│   │   └── flights_eda.ipynb
+│   │   ├── 1_raw_eda.ipynb
+│   │   └── 2_combined_eda.ipynb
 │   │
 │   └── modeling/
+│       ├── Logistic_regression_v2.ipynb
+│       ├── XGBoost.ipynb
 │       ├── logistic_regression_baseline.ipynb
 │       ├── random_forest_baseline.ipynb
 │       ├── random_forest_v2.ipynb
-│       └── random_forest_v3.ipynb
+│       ├── random_forest_v3.ipynb
+│    ├── XGB_tuning_BEST_PARAM.ipynb
+│    └── hyperparam_tuning_results.ipynb
 │
-├── models/
-│   └── XGBoost.ipynb
+│
+├── samples/
+│   ├── cancel_tuning_results.csv        # Hypertuning results on cancelled model performance
+│   ├── delay_tuning_results.csv         # Hypertuning results on delayed model performance
+│
+│
 │
 ├── README.md
 ├── requirements.txt
@@ -53,14 +59,11 @@ This project:
 ---
 
 ## Workflow Overview
-	1.	Run 1_download_data.py to download and cache raw flight and weather data
-	2.	Run 2_data_processing.py to create leakage-free engineered features
-	3.	Run sampling_split.py to:
-  	•	Balance samples across months
-  	•	Cap dominant origin airports and regions
-  	•	Stratify by target class (best-effort)
-  	•	Create time-based train / validation / test splits
-	4.	Train and evaluate models using class-aware metrics
+	1.	Run 1_download_raw_data.py to download raw flight and weather data locally
+	2.	Run 2_download_merged_data.py to download merged data of flight + weather locally
+	3.	Explore notebooks in EDA to understand data
+  4.  Explore notebooks in modeling to see baseline models
+  5.  Explore XGBoost models to see how hypertuning took place in evaluating the best model
 
 
 ## Evaluation Strategy
