@@ -1,1 +1,3 @@
-data/
+1_download_data/cleansed/flight_weather_merged.parquet
+1_download_data/raw/all_flights_2018-2022_raw.parquet
+1_download_data/raw/weather_airports_2018_2022_CLEAN.parquet

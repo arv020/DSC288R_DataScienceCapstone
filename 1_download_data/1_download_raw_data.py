@@ -8,11 +8,10 @@ import numpy as np
 DOWNLOAD_RAW = True # This determines if RAW datasets get downloaded locally
 
 # Paths
-BASE_DIR = Path(__file__).resolve().parent.parent
+BASE_DIR = Path(__file__).resolve().parent
 print(BASE_DIR)
 
-RAW_DIR = BASE_DIR/"data"/"raw"
-
+RAW_DIR = BASE_DIR/"raw"
 RAW_DIR.mkdir(parents=True, exist_ok=True)
 
 RAW_FILE = RAW_DIR / "all_flights_2018-2022_raw.parquet"
