@@ -7,20 +7,63 @@ Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 
 ## Project Purpose
 
-Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **cancelled** using historical flight operations and weather data from **2018–2022**.
-
-This project:
+Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **cancelled** using historical flight operations and weather data from **2018–2022**. This project:
 - Uses a **leakage-free feature set** (only information available before departure)
 - Explores multiple modeling approaches (Logistic Regression, Random Forest, XGBoost)
 - Applies **multi-stage sampling** to manage dataset scale and class imbalance
 - Emphasizes **time-aware evaluation** and class-balanced metrics
+
+## Workflow Overview
+Follow the steps below to reproduce the full project workflow.
+### 1. Clone the Repository locally by running the cells below on the terminal.
+
+  ``` git clone https://github.com/arv020/DSC288R_DataScienceCapstone.git ```
+
+  ```cd DSC288R_DataScienceCapstone ```
+  
+### 2. Set up environment Conda Enviornment. 
+Ensure Conda is installed on your system. If using Windows, it is recommended to run the project using WSL.
+
+Create the environment from the configuration file:
+
+  ``` conda env create -f environment.yml ```
+
+Activate the environment:
+
+
+  ``` conda activate flight--ml ```
+    
+    
+### 3. Download Raw Datasets
+Run the following script to download the raw flight and weather datasets locally. The datasets will be saved to: data/raw/
+
+``` python 1_download_data/1_raw_eda.ipynb ```
+
+### 4. Download Cleansed Dataset
+Run the following script to download the pre-merged flight + weather dataset. The dataset will be saved to: data/cleansed/
+
+``` python 1_download_data/2_combined_eda.ipynb ```
+
+
+### 5. Explore notebooks in EDA to understand data
+Open the notebooks in the 2_notebooks/2a_EDA/ directory to explore and understand the dataset.
+
+These notebooks analyze: Flight delay distributions, Weather patterns, Airport congestion trends and more.
+
+### 6. Explore notebooks in modeling 
+  a.  Explore XGBoost models to see how hypertuning took place in evaluating the best model
+
+b. Add more here ***
+
+### 7. Explore the tests to run final model
+Open the tests in the 3_tests/ directory to ......
 
 ---
 
 ## Project Structure
 
 ```text
-├── data/
+├── 1_download_data/
 │   ├── raw/                  # Raw downloaded data (not tracked)
 │   └── cleansed/             # Cleaned / joined datasets
 │
@@ -57,13 +100,6 @@ This project:
 ```
 
 ---
-
-## Workflow Overview
-	1.	Run 1_download_raw_data.py to download raw flight and weather data locally
-	2.	Run 2_download_merged_data.py to download merged data of flight + weather locally
-	3.	Explore notebooks in EDA to understand data
-  4.  Explore notebooks in modeling to see baseline models
-  5.  Explore XGBoost models to see how hypertuning took place in evaluating the best model
 
 
 ## Evaluation Strategy

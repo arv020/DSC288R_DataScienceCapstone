@@ -1,0 +1,20 @@
+name: flight-status-ml
+
+channels:
+  - conda-forge
+  - defaults
+
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - pandas
+  - scikit-learn
+  - matplotlib
+  - seaborn
+  - jupyterlab
+  - pyarrow
+  - tqdm
+
+  - pip:
+      - -r requirements.txt
