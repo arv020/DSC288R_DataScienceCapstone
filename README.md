@@ -37,7 +37,7 @@ Activate the environment:
 ### 3. Download Raw Datasets
 Run the following script to download the raw flight and weather datasets locally. The datasets will be saved to: data/raw/
 
-``` python 1_download_data/1_raw_eda.ipynb ```
+``` python 1_download_data/1_download_raw_eda.ipynb ```
 
 ### 4. Download Cleansed Dataset
 Run the following script to download the pre-merged flight + weather dataset. The dataset will be saved to: data/cleansed/
