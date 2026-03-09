@@ -35,12 +35,12 @@ Activate the environment:
     
     
 ### 3. Download Raw Datasets
-Run the following script to download the raw flight and weather datasets locally. The datasets will be saved to: data/raw/
+Run the following script to download the raw flight and weather datasets locally. The datasets will be saved to: 1_download_data/raw/
 
 ``` python 1_download_data/1_download_raw_data.py ```
 
 ### 4. Download Cleansed Dataset
-Run the following script to download the pre-merged flight + weather dataset. The dataset will be saved to: data/cleansed/
+Run the following script to download the pre-merged flight + weather dataset. The dataset will be saved to: 1_download_data/cleansed/
 
 ``` python 1_download_data/2_download_merged_data.py ```
 
