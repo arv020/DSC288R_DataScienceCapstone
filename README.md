@@ -31,7 +31,7 @@ Create the environment from the configuration file:
 Activate the environment:
 
 
-  ``` conda activate flight--ml ```
+  ``` conda activate flight-status-ml ```
     
     
 ### 3. Download Raw Datasets
