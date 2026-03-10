@@ -8,14 +8,15 @@ import pyarrow.compute as pc
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+print(BASE_DIR)
 
 # Paths
-FLIGHTS_PATH = BASE_DIR/"data"/"raw"/"all_flights_2018-2022_raw.parquet"
-WEATHER_PATH = BASE_DIR/"data"/"raw"/"weather_airports_2018_2022_CLEAN.parquet"
+FLIGHTS_PATH = BASE_DIR/"1_download_data"/"raw"/"all_flights_2018-2022_raw.parquet"
+WEATHER_PATH = BASE_DIR/"1_download_data"/"raw"/"weather_airports_2018_2022_CLEAN.parquet"
 
-OUT_DIR = BASE_DIR/"data"/"cleansed"
+OUT_DIR = BASE_DIR/"1_download_data"/"cleansed"
 OUT_PATH = os.path.join(OUT_DIR, 'flight_weather_merged.parquet')
-os.makedirs(OUT_DIR, exist_ok=True)
+# os.makedirs(OUT_DIR, exist_ok=True)
 
 # batch size for streaming flights parquet (big file)
 BATCH_SIZE = 600_000

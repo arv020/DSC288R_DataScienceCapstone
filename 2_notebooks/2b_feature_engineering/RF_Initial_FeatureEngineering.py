@@ -2,6 +2,7 @@ import gdown
 import pandas as pd
 from pathlib import Path
 import numpy as np
+import holiday
 
 # Default is TRUE to DOWNLOAD_RAW and DOWNLOAD_CLEANSED
 # These default values make the data download process quicker while still seeing tranformations
