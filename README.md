@@ -42,6 +42,12 @@ Create the environment from the configuration file:
 
   ``` conda env create -f environment.yml ```
 
+Initiate the environment:
+
+``` conda init ```
+
+***Close and open new terminal if directed to***
+
 Activate the environment:
 
 
