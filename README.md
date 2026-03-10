@@ -15,13 +15,27 @@ Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **ca
 
 ## Workflow Overview
 Follow the steps below to reproduce the full project workflow.
-### 1. Clone the Repository locally by running the cells below on the terminal.
+### 1. SSH into UCSD dsmlp to use computing resources.
+
+a. Connect to UCSD VPN, [UCSD VPN Instructions](https://blink.ucsd.edu/technology/network/connections/off-campus/VPN/index.html)
+
+b. Open terminal and copy:
+
+  ``` ssh <ucsd username>@dsmlp-login.ucsd.edu ```
+
+c. Once successfully logged in, copy to terminal:
+
+  ```launch-scipy-ml.sh -c 12 -m 76 -g 0 ```
+
+d. Copy the link from the terminal onto a browser to access 
+
+### 2. Clone the Repository locally by running the cells below on the terminal.
 
   ``` git clone https://github.com/arv020/DSC288R_DataScienceCapstone.git ```
 
   ```cd DSC288R_DataScienceCapstone ```
   
-### 2. Set up environment Conda Enviornment. 
+### 3. Set up environment Conda Enviornment. 
 Ensure Conda is installed on your system. If using Windows, it is recommended to run the project using WSL.
 
 Create the environment from the configuration file:
@@ -34,28 +48,30 @@ Activate the environment:
   ``` conda activate flight-status-ml ```
     
     
-### 3. Download Raw Datasets
+### 4. Download Raw Datasets
 Run the following script to download the raw flight and weather datasets locally. The datasets will be saved to: 1_download_data/raw/
 
 ``` python 1_download_data/1_download_raw_data.py ```
 
-### 4. Download Cleansed Dataset
+### 5. Download Cleansed Dataset
 Run the following script to download the pre-merged flight + weather dataset. The dataset will be saved to: 1_download_data/cleansed/
 
 ``` python 1_download_data/2_download_merged_data.py ```
 
 
-### 5. Explore notebooks in EDA to understand data
+### 6. Explore notebooks to understand EDA and Feature Engineering
 Open the notebooks in the 2_notebooks/2a_EDA/ directory to explore and understand the dataset.
+Open and run notebooks in the 2_notebooks/2b_feature_engineering/ explore feature engineering and prepare to run models in step 7.
+
 
 These notebooks analyze: Flight delay distributions, Weather patterns, Airport congestion trends and more.
 
-### 6. Explore notebooks in modeling 
-  a.  Explore XGBoost models to see how hypertuning took place in evaluating the best model
+### 7. Explore notebooks in modeling 
+a.  Explore models to see how hypertuning took place in evaluating the best model
 
 b. Add more here ***
 
-### 7. Explore the tests to run final model
+### 8. Explore the tests to run final model
 Open the tests in the 3_tests/ directory to ......
 
 ---
