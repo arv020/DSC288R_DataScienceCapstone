@@ -69,16 +69,11 @@ Run the following script to download the pre-merged flight + weather dataset. Th
 Open the notebooks in the 2_notebooks/2a_EDA/ directory to explore and understand the dataset.
 Open and run notebooks in the 2_notebooks/2b_feature_engineering/ explore feature engineering and prepare to run models in step 7.
 
-
-These notebooks analyze: Flight delay distributions, Weather patterns, Airport congestion trends and more.
-
 ### 7. Explore notebooks in modeling 
-a.  Explore models to see how hypertuning took place in evaluating the best model
-
-b. Add more here ***
+Explore models in the 2_notebooks/2c_modeling/ to see baseline models, hypertuning, and feature exploration.
 
 ### 8. Explore the tests to run final model
-Open the tests in the 3_tests/ directory to ......
+Open the notebook in the 3_tests/ directory to run the model on sample data as if you were a user and additional visualizations and tests.
 
 ---
 
@@ -86,38 +81,34 @@ Open the tests in the 3_tests/ directory to ......
 
 ```text
 ├── 1_download_data/
-│   ├── raw/                  # Raw downloaded data (not tracked)
-│   └── cleansed/             # Cleaned / joined datasets
+│   ├── 1_download_raw_data.py        # Downloads raw datasets
+│   └── 2_download_merged_data.py     # Downloads Cleaned/Joined datasets
 │
-├── scripts/
-│   ├── 1_download_raw_data.py            # Download raw and cleansed flight/weather data
-│   ├── 2_download_merged_data.py         # Download merged flight + weather data
-│   └── build_flights_weather_merged      # Script on how merged data is processed
-│
-├── notebooks/
-│   ├── EDA/
+├── 2_notebooks/
+│   ├── 2a_EDA/
 │   │   ├── 1_raw_eda.ipynb
 │   │   └── 2_combined_eda.ipynb
 │   │
-│   └── modeling/
-│       ├── Logistic_regression_v2.ipynb
-│       ├── XGBoost.ipynb
-│       ├── logistic_regression_baseline.ipynb
-│       ├── random_forest_baseline.ipynb
-│       ├── random_forest_v2.ipynb
-│       ├── random_forest_v3.ipynb
-│    ├── XGB_tuning_BEST_PARAM.ipynb
-│    └── hyperparam_tuning_results.ipynb
+│   ├── 2b_feature_engineering/
+│   │   ├── RF_Feature_Engineering.ipynb
+│   │   └── RF_Initial_FeatureEngineering.ipynb
+│   │
+│   ├── 2c_modeling/
+│   │   ├── Logistic Regression  #Logistic Regression Models
+│   │   ├── Random Forest        #Random Forest Models
+│   │   └── XGBoost              #XGBoost Models & Final Model
 │
+├── scripts/
+│   ├── 
+│   ├── 
+│   └── build_flights_weather_merged      # Script on how merged data is processed
 │
 ├── samples/
 │   ├── cancel_tuning_results.csv        # Hypertuning results on cancelled model performance
 │   ├── delay_tuning_results.csv         # Hypertuning results on delayed model performance
 │
-│
-│
 ├── README.md
-├── requirements.txt
+├── environment.yml            # Creates the conda environment
 └── .gitignore
 ```
 
