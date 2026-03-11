@@ -13,10 +13,10 @@ print(BASE_DIR)
 OUT_DIR = BASE_DIR/"cleansed"
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 
-OUT_FILE = OUT_DIR / 'flight_weather_merged.parquet'
+OUT_FILE = OUT_DIR / "final_flights_model_dataset.parquet"
 
 # Google drive file ID
-FILE_ID = '1N66s8CR8tpxZpYenNXNYQyZOtnoPCcLS'
+FILE_ID = "1DqQrrzIEZWn5uLpnR9zkljum2Zwp9ec3"
 
 if DOWNLOAD_MERGED:
     url = f'https://drive.google.com/uc?id={FILE_ID}'
