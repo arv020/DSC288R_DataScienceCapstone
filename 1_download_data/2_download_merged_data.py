@@ -1,6 +1,9 @@
 import gdown
 from pathlib import Path
 
+# Instructions on preprocessing on script "build_flights_weather_merged.py"
+# This simply downloads the preprocess to avoid extra runtime
+
 DOWNLOAD_MERGED = True
 
 # Where the merged file will be saved
