@@ -53,15 +53,20 @@ Activate the environment:
 
   ``` conda activate flight-status-ml ```
 
-## Quick Test Route
-If you want to quickly run all tests and reproduce models without exploring the full workflow:
 
-Then open the 3_tests/ directory and run notebook Model_Tests.ipynb.
+---
+## **Quickly Run the Model on Sample Data**
 
-This will allow you to reproduce the models and visualizations immediately.
+> Simulate using the model as a user would: see predictions and visualizations without running the full workflow.
+
+1. Open the `3_tests/` directory.  
+2. Run the notebook **`Model_Tests.ipynb`**.  
+
+This will execute the model on sample data and generate all visualizations immediately.  
 Otherwise, continue with the full workflow below.
 
-    
+---
+	
 ### 4. Download Raw Datasets
 Run the following script to download the raw flight and weather datasets locally. The datasets will be saved to: 1_download_data/raw/
 
