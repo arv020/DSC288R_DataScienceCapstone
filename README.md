@@ -133,8 +133,13 @@ Open the notebook in the 3_tests/ directory to run the model on sample data as i
 
   <TR><TD COLSPAN=2>&nbsp;</TD></TR>
 
-  <TR><TD COLSPAN=2><H4>Data Dictionary (Leakage-Free Features)</H4></TD></TR>
+  <TR><TD COLSPAN=2><H3>Data Dictionary (Leakage-Free Features)</H3></TD></TR>
 
+  <!-- weather and flights data -->
+  <TR>
+    <TD COLSPAN=2><H4>Weather and Flights Dataset</H4></TD>
+  </TR>
+  
   <!-- Time / Calendar -->
   <TR><TD>Year</TD><TD>Year</TD></TR>
   <TR><TD>Quarter</TD><TD>Quarter (1–4)</TD></TR>
@@ -177,13 +182,95 @@ Open the notebook in the 3_tests/ directory to run the model on sample data as i
   <TR><TD>Distance</TD><TD>Distance between airports in miles.</TD></TR>
   <TR><TD>DistanceGroup</TD><TD>Distance intervals in 250-mile groups.</TD></TR>
 
-<!-- Origin Airport Weather conditions -->
+  <!-- Origin Airport Weather conditions -->
   <TR><TD>p01i</TD><TD>Total precipitation accumulated over the previous one-hour period (inches). Includes: rain, snow, or other measurable precipitation</TD></TR>
   <TR><TD>gust</TD><TD>Max wind gust speed observed during the reporting period (in knots)</TD></TR>
   <TR><TD>vsby</TD><TD>Horizontal visibility measured in statute miles at reporting station (in miles)</TD></TR>
   <TR><TD>relh</TD><TD>Relative humidity expressed as a percentage. Variable is not directly measured but derived from temp and dew point.</TD></TR>
   <TR><TD>tempf</TD><TD>Air temperature in F</TD></TR>
   <TR><TD>sknt</TD><TD>Wind Speed in knots</TD></TR>
+
+  <!-- OPSNET data (Airport Operations)-->
+  <TR>
+    <TD COLSPAN=2><H4>OPSNET Dataset (Airport Operations)</H4></TD>
+  </TR>
+  <TR><TD>LOCID</TD><TD>FAA location identifier for the airport or facility.</TD></TR>
+  <TR><TD>YYYYMMDD</TD><TD>Date of record in YYYYMMDD format (Year, Month, Day).</TD></TR>
+  <TR><TD>STATE</TD><TD>Two-letter U.S. state identifier for the facility location.</TD></TR>
+  <TR><TD>REGION</TD><TD>FAA administrative region code representing the geographic region of the facility.</TD></TR>
+  <TR><TD>SAREA</TD><TD>Service area classification indicating operational coverage (Eastern, Central, or Western Enroute/Terminal).</TD></TR>
+  <TR><TD>CLASS_ID</TD><TD>Facility classification identifier describing the type of air traffic control facility.</TD></TR>
+  <TR><TD>FTYPE</TD><TD>Facility type code indicating operational facility category (e.g., radar tower, TRACON, ARTCC).</TD></TR>
+  <TR><TD>IFR_AC</TD><TD>IFR itinerant air carrier operations.</TD></TR>
+  <TR><TD>IFR_AT</TD><TD>IFR itinerant air taxi operations.</TD></TR>
+  <TR><TD>IFR_GA</TD><TD>IFR itinerant general aviation operations.</TD></TR>
+  <TR><TD>IFR_MI</TD><TD>IFR itinerant military operations.</TD></TR>
+  <TR><TD>VFR_AC</TD><TD>VFR itinerant air carrier operations.</TD></TR>
+  <TR><TD>VFR_AT</TD><TD>VFR itinerant air taxi operations.</TD></TR>
+  <TR><TD>VFR_GA</TD><TD>VFR itinerant general aviation operations.</TD></TR>
+  <TR><TD>VFR_MI</TD><TD>VFR itinerant military operations.</TD></TR>
+  <TR><TD>LOCAL_GA</TD><TD>Local civil general aviation operations.</TD></TR>
+  <TR><TD>LOCAL_MI</TD><TD>Local military operations.</TD></TR>
+  <TR><TD>AC</TD><TD>Total air carrier operations (IFR + VFR air carrier flights).</TD></TR>
+  <TR><TD>ATAXI</TD><TD>Total air taxi operations (IFR + VFR air taxi flights).</TD></TR>
+  <TR><TD>GA</TD><TD>Total general aviation operations (IFR + VFR general aviation + civil local operations).</TD></TR>
+  <TR><TD>MIL</TD><TD>Total military operations (IFR + VFR military + local military operations).</TD></TR>
+  <TR><TD>TOTAL</TD><TD>Total airport operations across all categories (AC + ATAXI + GA + MIL).</TD></TR>
+
+  <!-- airports data-->
+  <TR>
+    <TD COLSPAN=2><H4>Airports Dataset</H4></TD>
+  </TR>
+  <TR><TD>id</TD><TD>Internal OurAirports numeric identifier for the airport.</TD></TR>
+  <TR><TD>ident</TD><TD>Primary airport identifier used in the OurAirports system, typically the ICAO code.</TD></TR>
+  <TR><TD>type</TD><TD>Airport type classification (e.g., large_airport, medium_airport, small_airport, heliport).</TD></TR>
+  <TR><TD>name</TD><TD>Official name of the airport.</TD></TR>
+  <TR><TD>latitude_deg</TD><TD>Latitude of the airport in decimal degrees.</TD></TR>
+  <TR><TD>longitude_deg</TD><TD>Longitude of the airport in decimal degrees.</TD></TR>
+  <TR><TD>elevation_ft</TD><TD>Elevation of the airport above mean sea level in feet.</TD></TR>
+  <TR><TD>continent</TD><TD>Continent code indicating the geographic region of the airport.</TD></TR>
+  <TR><TD>iso_country</TD><TD>ISO 3166-1 alpha-2 country code where the airport is located.</TD></TR>
+  <TR><TD>iso_region</TD><TD>ISO 3166-2 regional subdivision code within the country.</TD></TR>
+  <TR><TD>municipality</TD><TD>Primary municipality or city served by the airport.</TD></TR>
+  <TR><TD>scheduled_service</TD><TD>Indicates whether the airport currently supports scheduled airline service (yes/no).</TD></TR>
+  <TR><TD>gps_code</TD><TD>Airport code used in aviation GPS databases.</TD></TR>
+  <TR><TD>icao_code</TD><TD>Four-letter ICAO airport identifier.</TD></TR>
+  <TR><TD>iata_code</TD><TD>Three-letter IATA airport code used by airlines.</TD></TR>
+  <TR><TD>local_code</TD><TD>Local airport code used primarily for U.S. airports.</TD></TR>
+  <TR><TD>home_link</TD><TD>URL of the airport’s official website.</TD></TR>
+  <TR><TD>wikipedia_link</TD><TD>URL of the airport’s Wikipedia page.</TD></TR>
+  <TR><TD>keywords</TD><TD>Additional search keywords or alternate names associated with the airport.</TD></TR>
+
+  
+  <!-- runways data -->
+  <TR>
+    <TD COLSPAN=2><H4>Runways Dataset</H4></TD>
+  </TR>
+  <TR><TD>id</TD><TD>Internal OurAirports identifier for the runway.</TD></TR>
+  <TR><TD>airport_ref</TD><TD>Internal foreign key linking the runway to the associated airport record.</TD></TR>
+  <TR><TD>airport_ident</TD><TD>Airport identifier corresponding to the associated airport in airports.csv.</TD></TR>
+  <TR><TD>length_ft</TD><TD>Total runway length in feet, including displaced thresholds and overruns.</TD></TR>
+  <TR><TD>width_ft</TD><TD>Width of the runway in feet.</TD></TR>
+  <TR><TD>surface</TD><TD>Runway surface type (e.g., asphalt, concrete, turf, gravel, water, or unknown).</TD></TR>
+  <TR><TD>lighted</TD><TD>Indicates whether the runway has lighting (1 = lighted, 0 = not lighted).</TD></TR>
+  <TR><TD>closed</TD><TD>Indicates whether the runway is currently closed (1 = closed, 0 = open).</TD></TR>
+  <TR><TD>le_ident</TD><TD>Identifier for the low-numbered end of the runway.</TD></TR>
+  <TR><TD>le_latitude_deg</TD><TD>Latitude of the low-numbered runway end in decimal degrees.</TD></TR>
+  <TR><TD>le_longitude_deg</TD><TD>Longitude of the low-numbered runway end in decimal degrees.</TD></TR>
+  <TR><TD>le_elevation_ft</TD><TD>Elevation of the low-numbered runway end in feet above mean sea level.</TD></TR>
+  <TR><TD>le_heading_degT</TD><TD>True heading of the low-numbered runway end in degrees.</TD></TR>
+  <TR><TD>le_displaced_threshold_ft</TD><TD>Length of displaced threshold at the low-numbered runway end in feet.</TD></TR>
+  <TR><TD>he_ident</TD><TD>Identifier for the high-numbered end of the runway.</TD></TR>
+  <TR><TD>he_latitude_deg</TD><TD>Latitude of the high-numbered runway end in decimal degrees.</TD></TR>
+  <TR><TD>he_longitude_deg</TD><TD>Longitude of the high-numbered runway end in decimal degrees.</TD></TR>
+  <TR><TD>he_elevation_ft</TD><TD>Elevation of the high-numbered runway end in feet above mean sea level.</TD></TR>
+  <TR><TD>he_heading_degT</TD><TD>True heading of the high-numbered runway end in degrees.</TD></TR>
+  <TR><TD>he_displaced_threshold_ft</TD><TD>Length of displaced threshold at the high-numbered runway end in feet.</TD></TR>
+  
+  <!-- Airline Delay Cause Data-->
+  <TR>
+    <TD COLSPAN=2><H4>Airline Delay Cause Dataset</H4></TD>
+  </TR>
 
 </TABLE>
 
