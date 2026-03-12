@@ -284,6 +284,27 @@ Open the notebook in the 3_tests/ directory to run the model on sample data as i
   <TR>
     <TD COLSPAN=2><H4>Airline Delay Cause Dataset</H4></TD>
   </TR>
+  <TR><TD>year</TD><TD>Year in YYYY format.</TD></TR>
+  <TR><TD>month</TD><TD>Month in MM format (1–12).</TD></TR>
+  <TR><TD>carrier</TD><TD>Code assigned by the U.S. DOT to uniquely identify an airline carrier.</TD></TR>
+  <TR><TD>carrier_name</TD><TD>Unique airline name as defined by a single holding and reporting certificate.</TD></TR>
+  <TR><TD>airport</TD><TD>Three-character alphanumeric airport code issued by the U.S. Department of Transportation.</TD></TR>
+  <TR><TD>airport_name</TD><TD>Name of the airport.</TD></TR>
+  <TR><TD>arr_flights</TD><TD>Total number of arrival flights.</TD></TR>
+  <TR><TD>arr_del15</TD><TD>Number of arrivals delayed by 15 minutes or more.</TD></TR>
+  <TR><TD>carrier_ct</TD><TD>Count of delays attributed to the carrier.</TD></TR>
+  <TR><TD>weather_ct</TD><TD>Count of delays attributed to weather.</TD></TR>
+  <TR><TD>nas_ct</TD><TD>Count of delays attributed to the National Air System (NAS).</TD></TR>
+  <TR><TD>security_ct</TD><TD>Count of delays attributed to security issues.</TD></TR>
+  <TR><TD>late_aircraft_ct</TD><TD>Count of delays attributed to late incoming aircraft.</TD></TR>
+  <TR><TD>arr_cancelled</TD><TD>Number of cancelled flights.</TD></TR>
+  <TR><TD>arr_diverted</TD><TD>Number of diverted flights.</TD></TR>
+  <TR><TD>arr_delay</TD><TD>Total arrival delay in minutes, relative to scheduled arrival time.</TD></TR>
+  <TR><TD>carrier_delay</TD><TD>Total carrier delay in minutes.</TD></TR>
+  <TR><TD>weather_delay</TD><TD>Total weather delay in minutes.</TD></TR>
+  <TR><TD>nas_delay</TD><TD>Total National Air System delay in minutes.</TD></TR>
+  <TR><TD>security_delay</TD><TD>Total security delay in minutes.</TD></TR>
+  <TR><TD>late_aircraft_delay</TD><TD>Total late aircraft delay in minutes.</TD></TR>
 
 </TABLE>
 
