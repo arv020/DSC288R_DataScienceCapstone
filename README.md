@@ -11,6 +11,15 @@ Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 - ~30 GB disk space (raw + processed datasets)
 - 12+ GB RAM recommended (24M-row dataset)
 
+
+## Project Purpose
+
+Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **cancelled** using historical flight operations and weather data from **2018–2022**. This project:
+- Uses a **leakage-free feature set** (only information available before departure)
+- Explores multiple modeling approaches (Logistic Regression, Random Forest, XGBoost)
+- Applies **multi-stage sampling** to manage dataset scale and class imbalance
+- Emphasizes **time-aware evaluation** and class-balanced metrics
+
 ---
 ## **Quickly Run the Model on Sample Data**
 
@@ -22,14 +31,6 @@ Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 This will execute the model on sample data and generate all visualizations immediately.  
 Otherwise, continue with the full workflow below.
 
-
-## Project Purpose
-
-Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **cancelled** using historical flight operations and weather data from **2018–2022**. This project:
-- Uses a **leakage-free feature set** (only information available before departure)
-- Explores multiple modeling approaches (Logistic Regression, Random Forest, XGBoost)
-- Applies **multi-stage sampling** to manage dataset scale and class imbalance
-- Emphasizes **time-aware evaluation** and class-balanced metrics
 
 ## Workflow Overview
 Follow the steps below to reproduce the full project workflow.
