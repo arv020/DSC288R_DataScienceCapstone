@@ -5,6 +5,21 @@ Master of Science in Data Science
 
 Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 
+### Requirements
+- Python 3.9+
+- Conda (for environment setup)
+- ~30 GB disk space (raw + processed datasets)
+- 12+ GB RAM recommended (24M-row dataset)
+
+### Reproduce Final Test Results
+To reproduce the exact test macro-F1 of 0.4477 reported in the paper:
+
+1. Complete Steps 4-5 above (download datasets)
+2. Open `2_notebooks/2c_modeling/XGBoost/xgboost_v9_final_model.ipynb`
+3. Run all cells
+
+The notebook loads the pre-trained cascade model from `3_tests/cascade_final.pkl`, applies thresholds (τₐ = 0.5, τᵇ = 0.6) to the 2022 test set, and outputs the classification report and confusion matrix.
+
 ## Project Purpose
 
 Predict whether a U.S. domestic flight will be **on time**, **delayed**, or **cancelled** using historical flight operations and weather data from **2018–2022**. This project:
@@ -81,6 +96,21 @@ Run the following script to download the pre-merged flight + weather dataset. Th
 ### 6. Explore notebooks to understand EDA and Feature Engineering
 Open the notebooks in the 2_notebooks/2a_EDA/ directory to explore and understand the dataset.
 Open and run notebooks in the 2_notebooks/2b_feature_engineering/ explore feature engineering and prepare to run models in step 7.
+
+### 6b. (Optional) Run the Data Pipeline from Scratch
+If you want to regenerate the merged and feature-engineered datasets used by the XGBoost notebooks:
+```bash
+cd 4_scripts/
+python 1_build_dataset.py
+python 2_build_features.py
+```
+
+This produces:
+- `1_download_data/cleansed/final_flights_model_dataset.parquet` (merged dataset)
+- `1_download_data/cleansed/modeling_dataset.parquet` (feature-engineered dataset with 49 features)
+- `4_scripts/feature_cols.py` (auto-generated feature list used by the notebooks)
+
+**Note:** This requires the raw datasets from Step 4 and takes approximately 30-40 minutes on DSMLP due to the 24M-row dataset size.
 
 ### 7. Explore notebooks in modeling 
 Explore models in the 2_notebooks/2c_modeling/ to see baseline models, hypertuning, and feature exploration. Final model can be found in 2_notebooks/2c_modeling/XGBoost/xgboost_v9_final_model.ipynb
