@@ -22,16 +22,6 @@ Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 This will execute the model on sample data and generate all visualizations immediately.  
 Otherwise, continue with the full workflow below.
 
----
-
-### Reproduce Final Test Results
-To reproduce the exact test macro-F1 of 0.4477 reported in the paper:
-
-1. Complete Steps 1-5 below (set up environment & download datasets)
-2. Open `2_notebooks/2c_modeling/XGBoost/xgboost_v9_final_model.ipynb`
-3. Run all cells
-
-The notebook loads the pre-trained cascade model from `3_tests/cascade_final.pkl`, applies thresholds (τₐ = 0.5, τᵇ = 0.6) to the 2022 test set, and outputs the classification report and confusion matrix.
 
 ## Project Purpose
 
