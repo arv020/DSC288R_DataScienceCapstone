@@ -2,10 +2,9 @@ import gdown
 import pandas as pd
 from pathlib import Path
 import numpy as np
-
-# Default is TRUE to DOWNLOAD_RAW and DOWNLOAD_CLEANSED
-# These default values make the data download process quicker while still seeing tranformations
-DOWNLOAD_RAW = True # This determines if RAW datasets get downloaded locally
+import requests
+import os
+from tqdm import tqdm
 
 # Paths
 BASE_DIR = Path(__file__).resolve().parent
@@ -21,52 +20,71 @@ RUNWAYS_FILE = RAW_DIR / "runways.csv"
 DELAY_CAUSE_FILE = RAW_DIR / "Airline_Delay_Cause.csv"
 OPSNET_FILE = RAW_DIR / "WEB-Report-74040.xls"
 
-if DOWNLOAD_RAW == True:
-    # Google Drive file
-    FILE_ID = "17HSBiO3rKT6rX28r4l4LKgwLqHgtTc0m"
-    url = f"https://drive.google.com/uc?id={FILE_ID}"
 
-    # Download raw flight file
-    print(f"Downloading raw dataset to {RAW_FILE} ...")
-    gdown.download(url, str(RAW_FILE), quiet=False)
-    print("Download complete!")
+# -----------------------------
+# Configuration: list of datasets
+# -----------------------------
+datasets = [
+    {
+        "url": "https://github.com/arv020/DSC288R_DataScienceCapstone/releases/download/288R/all_flights_2018-2022.parquet",
+        "output_dir": RAW_DIR,
+        "output_file": "all_flights_2018-2022_raw.parquet"
+    },
+    {
+        "url": "https://github.com/arv020/DSC288R_DataScienceCapstone/releases/download/288R-weather/weather_airports_2018_2022_CLEAN.parquet",
+        "output_dir": RAW_DIR,
+        "output_file": "weather_airports_2018_2022_CLEAN.parquet"
+    }
+     ,
+    {
+        "url": "https://github.com/arv020/DSC288R_DataScienceCapstone/releases/download/288R-Airports/airports.csv",
+        "output_dir": RAW_DIR,
+        "output_file": "airports.csv"
+    },
+    {
+        "url": "https://github.com/arv020/DSC288R_DataScienceCapstone/releases/download/288R-Runways/runways.csv",
+        "output_dir": RAW_DIR,
+        "output_file": "runways.csv"
+    },
+    {
+        "url": "https://github.com/arv020/DSC288R_DataScienceCapstone/releases/download/288R-AirlineDelayCause/Airline_Delay_Cause.csv",
+        "output_dir": RAW_DIR,
+        "output_file": "Airline_Delay_Cause.csv"
+    },
+    {
+        "url": "https://github.com/arv020/DSC288R_DataScienceCapstone/releases/download/288r-Web/WEB-Report-74040.xls",
+        "output_dir": RAW_DIR,
+        "output_file": "WEB-Report-74040.xls"
+    }
+]
 
-    # Download weather data
-    FILE_ID = "1hpqqFArHMMODSXfxU25tVdZSSzm8FDMU"
-    url = f"https://drive.google.com/uc?id={FILE_ID}"
+# -----------------------------
+# Function to download a single file with progress bar
+# -----------------------------
+def download_file(url, output_path):
+    os.makedirs(os.path.dirname(output_path), exist_ok=True)
 
-    print(f"Downloading raw weather dataset to {WEATHER_FILE} ...")
-    gdown.download(url, str(WEATHER_FILE), quiet=False)
-    print("Raw Weather Download complete!")
+    response = requests.get(url, stream=True)
+    total_size = int(response.headers.get('content-length', 0))
+    chunk_size = 1024 * 1024  # 1MB
 
-    # Download airports data
-    FILE_ID = "1K-CccX6SlAIuLmkq_7X5VOMLFb9tB8Sh"
-    url = f"https://drive.google.com/uc?id={FILE_ID}"
+    with open(output_path, "wb") as f, tqdm(
+        desc=os.path.basename(output_path),
+        total=total_size,
+        unit='B',
+        unit_scale=True,
+        unit_divisor=1024,
+    ) as bar:
+        for chunk in response.iter_content(chunk_size=chunk_size):
+            if chunk:
+                f.write(chunk)
+                bar.update(len(chunk))
 
-    print(f"Downloading airpoirts data to {AIRPORTS_FILE} ...")
-    gdown.download(url, str(AIRPORTS_FILE), quiet=False)
-    print("Airports Download complete!")
+# -----------------------------
+# Loop over all datasets
+# -----------------------------
+for dataset in datasets:
+    print(f"\nDownloading {dataset['output_file']}...")
+    download_file(dataset["url"], os.path.join(dataset["output_dir"], dataset["output_file"]))
 
-    # Download runways data 
-    FILE_ID = "1qfvRS8Mae3oCtSn-tfp2nhb66fAz529G"
-    url = f"https://drive.google.com/uc?id={FILE_ID}"
-
-    print(f"Downloading runways data to {RUNWAYS_FILE} ...")
-    gdown.download(url, str(RUNWAYS_FILE), quiet=False)
-    print("Runways Download complete!")
-
-    # Download BTS airline delay causes (airline_delay_causes.csv)
-    FILE_ID = "1ssd2zi5GlAVNVz3l29svIHWiCNzLLiU0"
-    url = f"https://drive.google.com/uc?id={FILE_ID}"
-
-    print(f"Downloading airline delay causes to {DELAY_CAUSE_FILE} ...")
-    gdown.download(url, str(DELAY_CAUSE_FILE), quiet=False)
-    print("Delay Causes Download complete!")
-
-    # Download FAA OPSNET operations report
-    FILE_ID = "1V4J_1E4Ona8qhoMWQ2ype11Jva6zFko_"
-    url = f"https://drive.google.com/uc?id={FILE_ID}&export=download"
-
-    print(f"Downloading OPSNET report to {OPSNET_FILE} ...")
-    gdown.download(url, str(OPSNET_FILE), quiet=False)
-    print("OPSNET Download complete!")
+print("\nAll downloads complete!")

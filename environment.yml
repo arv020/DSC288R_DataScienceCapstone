@@ -19,6 +19,7 @@ dependencies:
   - imbalanced-learn=0.10.1
   - lxml
   - joblib
+  - requests
 
   - pip:
       - gdown==4.7.1
