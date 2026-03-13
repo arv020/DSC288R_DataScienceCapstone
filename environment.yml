@@ -17,6 +17,8 @@ dependencies:
   - tqdm
   - xgboost=1.7
   - imbalanced-learn=0.10.1
+  - lxml
+  - joblib
 
   - pip:
       - gdown==4.7.1
