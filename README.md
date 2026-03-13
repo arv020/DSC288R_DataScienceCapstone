@@ -11,10 +11,23 @@ Authors: Sahra Ranjbar, Arely Vasquez, Tatianna Sanchez
 - ~30 GB disk space (raw + processed datasets)
 - 12+ GB RAM recommended (24M-row dataset)
 
+---
+## **Quickly Run the Model on Sample Data**
+
+> Simulate using the model as a user would: see predictions and visualizations without running the full workflow.
+
+1. Open the `3_tests/` directory.  
+2. Run the notebook **`Model_Tests.ipynb`**.  
+
+This will execute the model on sample data and generate all visualizations immediately.  
+Otherwise, continue with the full workflow below.
+
+---
+
 ### Reproduce Final Test Results
 To reproduce the exact test macro-F1 of 0.4477 reported in the paper:
 
-1. Complete Steps 4-5 above (download datasets)
+1. Complete Steps 1-5 above (download datasets)
 2. Open `2_notebooks/2c_modeling/XGBoost/xgboost_v9_final_model.ipynb`
 3. Run all cells
 
@@ -68,19 +81,6 @@ Activate the environment:
 
   ``` conda activate flight-status-ml ```
 
-
----
-## **Quickly Run the Model on Sample Data**
-
-> Simulate using the model as a user would: see predictions and visualizations without running the full workflow.
-
-1. Open the `3_tests/` directory.  
-2. Run the notebook **`Model_Tests.ipynb`**.  
-
-This will execute the model on sample data and generate all visualizations immediately.  
-Otherwise, continue with the full workflow below.
-
----
 	
 ### 4. Download Raw Datasets
 Run the following script to download the raw flight and weather datasets locally. The datasets will be saved to: 1_download_data/raw/
