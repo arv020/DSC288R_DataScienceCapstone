@@ -83,7 +83,7 @@ Open the notebooks in the 2_notebooks/2a_EDA/ directory to explore and understan
 Open and run notebooks in the 2_notebooks/2b_feature_engineering/ explore feature engineering and prepare to run models in step 7.
 
 ### 7. Explore notebooks in modeling 
-Explore models in the 2_notebooks/2c_modeling/ to see baseline models, hypertuning, and feature exploration.
+Explore models in the 2_notebooks/2c_modeling/ to see baseline models, hypertuning, and feature exploration. Final model can be found in 2_notebooks/2c_modeling/XGBoost/xgboost_v9_final_model.ipynb
 
 ### 8. Explore the tests to run final model
 Open the notebook in the 3_tests/ directory to run the model on sample data as if you were a user and additional visualizations and tests.
@@ -99,28 +99,40 @@ Open the notebook in the 3_tests/ directory to run the model on sample data as i
 │
 ├── 2_notebooks/
 │   ├── 2a_EDA/
-│   │   ├── 1_raw_eda.ipynb
-│   │   └── 2_combined_eda.ipynb
+│   │   ├── 1_raw_eda.ipynb           # Raw EDA with datasets
+│   │   └── 2_combined_eda.ipynb      # EDA once merged datasets
 │   │
 │   ├── 2b_feature_engineering/
-│   │   ├── RF_Feature_Engineering.ipynb
-│   │   └── RF_Initial_FeatureEngineering.ipynb
+│   │   ├── RF_Feature_Engineering.ipynb          # Feature Engineering used for Logistic Regression + RF versions 1-3
+│   │   ├── RF_Initial_FeatureEngineering.ipynb   # Feature Engineering used for RF version 4
+│   │   └── XGB_Feature_Engineering.ipynb         # Feature Engineering used for XGBoost
 │   │
 │   ├── 2c_modeling/
-│   │   ├── Logistic Regression  #Logistic Regression Models
-│   │   ├── Random Forest        #Random Forest Models
-│   │   └── XGBoost              #XGBoost Models & Final Model
+│   │   ├── Logistic Regression  # Logistic Regression Models
+│   │   ├── Random Forest        # Random Forest Models
+│   │   └── XGBoost              # XGBoost Models & Final Model
 │
-├── scripts/
-│   ├── 
-│   ├── 
-│   └── build_flights_weather_merged      # Script on how merged data is processed
+├── 3_tests/
+│   ├── cascade_final.pkl     # Final trained model selected
+│   ├── Model_Tests.ipynb     # Tests for the user to read in their own data
+│   └── sample_data.csv       # Sample data in for model prediction
+│
+│
+├── 4_scripts/
+│   ├── exploration/
+│   │   ├── bayesian_hyperparameter_search.py
+│   │   ├── README.md         # Explanation for bayesian_hyperparameter_search
+│   ├── 1_build_dataset.py        # Preprocessing for XGBoost
+│   ├── 2_build_features.py       # Preprocessing for XGBoost
+│   ├── 3_tune_hyperparams.py     # Tuning for XGBoost
+│   ├── flight_weather_setup.py
+│   └── resampling_experiments 
 │
 ├── samples/
 │   ├── cancel_tuning_results.csv        # Hypertuning results on cancelled model performance
-│   ├── delay_tuning_results.csv         # Hypertuning results on delayed model performance
+│   └──  delay_tuning_results.csv         # Hypertuning results on delayed model performance
 │
-├── README.md
+├── README.md                  # Read at beginning of project
 ├── environment.yml            # Creates the conda environment
 └── .gitignore
 ```
