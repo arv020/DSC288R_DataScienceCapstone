@@ -27,7 +27,7 @@ Otherwise, continue with the full workflow below.
 ### Reproduce Final Test Results
 To reproduce the exact test macro-F1 of 0.4477 reported in the paper:
 
-1. Complete Steps 1-5 above (download datasets)
+1. Complete Steps 1-5 below (download datasets)
 2. Open `2_notebooks/2c_modeling/XGBoost/xgboost_v9_final_model.ipynb`
 3. Run all cells
 
